@@ -1,0 +1,694 @@
+- I could continue with my torrent application, extending it such that:
+	- It's written in a lower level language to improve efficiency and portability
+	- Includes a greater mechanism for reliability and security, changing the protocol with which it operates
+	- Works over larger networks
+		- Would require research on my part regarding routing
+
+- I have an interest in developing networked applications as a whole and am willing to undertake any appropriate role
+- I can work up to 8 weeks, and I would require written evidence on your part that I have developed my skills in the field of cyber security...
+	- ...which I can appreciate is very vague, but it's just the way my sponsorship describe it
+
+- ILNP
+	- Saleem working on it
+	- Disruptive 
+	- Security and Privacy
+	- First paper there is required reading
+		- Huge emphasis on security being built in from the start
+	- Although it's got a very different architecture
+		- ...will work with current IPv6 networks, not even considering IPv4
+	- Evolving the Internet Architecture through Naming
+		- Also required reading...
+	- Possible improvements of ILMP over v6 networks for location privacy, identity privacy and packet level security 
+	- Doable, but challenging
+		- More deeply and fundamental of networks and architecture
+		- Really have to know how the systems work and want to engineer those systems
+			- Very low level understanding
+	- Get back to him and tell him yes or no after reading the papers and coming to a solution
+
+- 02/06/20
+  ~~~~~~~~
+
+- I've read the papers and am intrigued by the idea of a "clean-slate" network protocol for the internet (more the first paper than the second)
+	- I still need to study the papers, but from my current understanding, I can better appreciate how complex IP has become
+	- From subnetting and NAT, support for multi-homing, etc.
+	- The restriction on what IP should be capable of has been expanded into several dependent services that are crucial for the running of the internet
+		- What is referred to in the first paper as "semantic overload"
+	- It is for this reason why ILNP interests me
+- I need to spend more time on "strict research"
+	- Fundamental networking concepts and the current internet architecture
+	- IPSec and IPv6
+	- Routing and approaching
+- ...Before I can begin really understanding the fundamentals of ILNP and its purported security benefits
+
+- One page brief on what I'm going to do
+	- DOER: Descriptive Objectives Ethics Resources
+	- 4099 on studres
+	- Common Written Understanding that referes to what I'm going to do
+	- Today is the START of the project
+		- 02/06/2020 
+	- EVERY week before we meet, ideally at least 24hr beforehand - send an Email
+		- 7-8 lines: What I have done  
+		- 3-4 lines: What I want to discuss
+	- NOTHING practical
+	- All meeting summaries in Saleem's read only OneDrive link
+
+- Actual deliverable:
+	- Comparing IPv6 Security and Privacy with ILNPv6 (ILNPv4 kinda the same)
+		- Paper study
+		- How could ILNPv6 be changed such that IPSec works with ILNP?
+		- Source address destination address needs to change to source identifier destination identifier has implications
+			- Where does the security come from? Ephemeral identifiers, better than static NIC-bit addition which is TRACKABLE
+		- IPv6: Too hard! No experimentation work, too much lab work and maintenance
+
+- todo:
+  ~~~~~
+	- RFC 7217: Ephemeral Identifiers
+	- RFC 7421: 64-bit IPv6 Interface Identifiers
+	- RFC 7707: Network Reconnaissance in IPv6 Networks
+	- RFC 7721: Security and Privacy Considerations for IPv6 Address Generation Mechanisms
+	- RFC 7943: A Method for Generating Semantically Opaque Interface Identifiers (IIDs) with the Dynamic Host Configuration Protocol for IPv6 (DHCPv6)
+	- RFC 8064: Recommendation on Stable IPv6 Interface Identifiers
+	- 1400 on a Tuesday every week
+	- Tuesday 2nd June START DATE
+	- Tuesday 11th August FINISH DATE
+	- DOER 
+		- 1-2 Pages
+		- Make ILNP work with IPSec
+		- Look at privacy with respect to IP and ILNP
+			- Location privacy and identity privacy
+			- Part of ILNP under investigation
+	- Email I send 24hrs in advance of next Tuesday
+	- Push draft DOER to a GitLab
+		- Get a GitLab from Stuart 
+
+- 09/06/20
+  ~~~~~~~~
+
+- I watched Saleem's netdev talk on ILNP - very useful
+	- Was question at the end an architectural concern? I construed it as being implementation specific
+- RFC 7217: A Method for Generating Semantically Opaque Interface Identifiers with IPv6 Stateless Address Autoconfiguration (SLAAC)
+	- IPv6 addresses stable within a subnet but corresponding interface identifier changes when the host moves from one network to another 
+	- Alternative to using MAC address such that it doesn't reveal hardware when used
+	- Same address cannot be tracked on the same network, nor can it be tracked across multiple networks
+- RFC 7421: Analysis of the 64-bit Boundary in IPv6 Addressing
+	- Specifies how if the interface identifier is of variable size, how it could work
+		- ASK ABOUT THIS !!!
+		- Privacy concern 
+		- Fixed length IDs are technically desirable
+		- Semantics of identifier half of IPv6 are important in terms of how they are generated
+			- ...Because of privacy
+			- IPv6 router advertisement, here is my address, here are the prefixes I will route for
+			- Full address needs the lower 64 bits for identifier...
+				- SLAAC uses MAC addresses 48 bits for NIC and fills middle bits with FFFE
+				- That identifier is constant 
+				- If they know you're using IPv6
+				- Can track globally 
+		- Ephemeral addresses tell of probabilities of identifier conflict
+
+	- Also specifies just the advantages of having it as fixed size
+- RFC 7707: Network Reconnaissance in IPv6 Networks
+	- Need to spend more time reading this one
+		- Question?
+	- IPv6 scanning attacks are easier than you'd assume
+		- With methods outlined in the article
+- RFC 7721: Security and Privacy Considerations for IPv6 Address Generation Mechanisms
+	- Generic article on security concerns for IIDs etc.
+	- Specifies mechanisms as a part of IPv6 networks and their privacy/security effects
+- RFC 7943: A Method for Generating Semantically Opaque Interface Identifiers (IIDs) with the Dynamic Host Configuration Protocol for IPv6 (DHCPv6)
+- RFC 8064: Recommendation on Stable IPv6 Interface Identifiers
+
+- Potential structure for paper:
+	- Identify why IPv4 and IPv6 schemes fail in  security and how ILNP addresses these concerns
+	- I suppose this is a preference that concerns the formality and assumed knowledge of the paper
+		- It's something I'll have to formally study, so why not include it for underlying networking?
+- Opaque data types
+
+- Something you can't see through 
+- Presents itself as a lump you can't see through 
+- Opaque identifier values are a similar concept - no semantics associated with them
+	- You will know upper 64 bits are a routing prefix 
+	- Look up next part of the bits for geographic locating
+	- You know lower 64 bits using FFFE in the middle, know it is using SLAAC
+		- You can find serial number of the device
+- This is OPPOSITE of an opaque address as an opaque address has no semantic context
+
+- In depth look at implementations specific to IPv6 relating to security 
+- Overall need to spend more time revising these RFCs 
+- Stable address: One that does not vary over time within the same network
+- There's a lot to absorb in these RFCs
+	- I'm still getting my head around SLAAC and opaque data types
+
+- Number objectives
+- My supervisor thinks it's strange that there's an external sponsor and there's no upfront communication 
+	- Person being assessed and managed
+	- No communication between him and the sponsor 
+		- It's really unusual and no contact with them
+		- No way of checking what I need to do other than me telling him 
+- Basically a hijack and a derivative of ILNP called ILA 
+	- Quantomium in Palo Alto
+	- Facebook use ILA
+	- Checksum recompute breaks NAT 
+		- NAT is an edge box - will be able to tell if a packet is ILNP
+- During a session, address is immutable
+	- Within the scope of the lifetime of an end system, between reboots etc., could if you want, generate ID values and use them for new transport layer sessions, for this duration, they are immutable, otherwise end point 
+	- Ports are still the same, but in the place of addresses there are node identifiers, for a stable end to end state the identifiers need to stay the same 
+	- ILNP has its own version of NAT
+		- Look into that: RFC 6748
+- There's NAT capabilities, IPv6
+- NAT breaks end to end compatibility with TCP and UDP
+
+- IPSec provides authentication and data privacy
+- Slides in OneDrive
+- Look up security stuff 
+- Mechanisms implementing services, worth MAC 
+	- Relearn security from an architecture standpoint and just for general revision
+- Have a look at paper sent
+	- Stuff on ILNP NAT and ILNP multihoming
+- Compile notes on security
+	- Make it very comprehensive and systematic of security etc. fill it to the brim
+- Maybe discuss data analysis stuff
+	- Unanswered questions 
+	- Things worth thinking about 
+	- General issue 
+- Revise DOER
+
+- todo
+  ~~~~
+- 4th DOER objective: Provide critical evaluation in comparison to IPv6...
+	- Discussed sections (as of yet):
+		- NAT
+		- Multihoming
+	- ..in aim to help identify weaknesses in IPv6 AND ILNPv6
+		- Suggest things "fixed" in ILNP from IPv6 and security/privacy positives to IPv6 as opposed to ILNPv6
+- Focus on the architectural motivation for security features as opposed to strictly engineering
+	- Revise 2003 security slides from an architectural standpoint...
+	- ...to see what aspects of privacy and security can be guaranteed through what mechanisms
+	- Created document "An Appreciation for Architectural Security and Privacy: Consolidated Notes"
+- HARMONISED RESILIENCE, SECURITY AND MOBILITY CAPABILITY FOR IP
+	- Take a look 
+
+- 16/06/20
+  ~~~~~~~~
+
+- Definitions
+  -----------
+
+- Upper = Most significant bits in an IPv6, ones that appear first
+- Lower = Least significant bits: ones that appear at the end
+
+- NAT: Mechanism for converting between private addresses and network addresses
+- Multihoming: Mechanism for allowing multiple addresses for a single node, multiple internet adapters
+- DNS: Convert FQDN to IP (Location Protocol)
+	- ILNP still encourages the use of FQDNs at app layer 
+	- Ports for unknown services are advertised through known ones
+
+- SBR: Site Border Routers
+
+- My Talking Points
+  -----------------
+- Emphasis in preface/introduction of final paper on separating protocol roles amongst suitable layers
+	- i.e. FQDN at Application, Transport shouldn'd need access to IP
+- Explanation of ILNP is implemented with v6 to produce ILNPv6 in the introduction as well
+- How long should each section be?
+- The Milcom paper gives an overview into ILNP and how it's implemented with IPv6
+	- It also discusses some of the things I plan on researching as my third objective
+		- Multihoming 
+		- NAT
+	- IPSec compatibility is also discussed, which is relevant to my second objective
+- What's the difference between site and host multihoming?
+- If the internet architecture were to fully adopt ILNPv6, would all VPN companies go out of business?
+	- Presumably this would also improve the average throughput of prior VPN users while still providing the location and identity privacy?
+
+- Active Notes
+  ------------
+- Mobility other thing for objective 3
+	- Challenging use case 
+	- Mobility is something people understand better because of personal devices
+- You have two friends and they both talk mandarin chinese and I don't know chinese but I know them
+	- They want to plan a birthday party in secret
+	- They can't get away from you
+	- You know they're talking to each other
+	- You know your birthday is coming up
+	- They have data privacy but they don't have identity privacy
+	- Also now talk to friends on phone in chinese
+		- Know identity of one, but not the person down the phone
+		- Security by obscurity
+	- Data security covers a whole bunch of stuff
+		- Can authenticate both parties and lump of communication
+		- You can authenticate things without data security
+			- Forge detection, but not necessarily observation or authentication security
+			- People can still see it
+- Steganography doesn't necessarily provide privacy
+	- Privacy is not knowing things, even if they might look for them
+	- Times and ability to communicate is hidden
+	- Security is protecting communication in some
+- Opposite of voluntary is unintentional but required
+- Involuntary
+- Have to be communicated, underlying data metdata
+	- Signalling plane: header information like sequence numbers, ack numbers, window sizes. Allow protocol to function, INVOLUNTARY communication
+	- Control plane: DNS lookup,. Allow communication to function, INVOLUNTARY communication
+	- Data plane: The data you just intend to send, the DATA. Message contents, VOLUNTARY communication
+	- (Management plane): May not be involuntary, normally outside scope of the user
+- Voluntary can be incorporated quite well if these are taken into account
+- Make document as short as I can
+
+- todo
+  ~~~~
+- Make explicit the concepts of voluntary and involuntary
+- Change each reference of TBA to MOBILITY
+				  --------
+- Elaborate on the definition of trust 
+	- Shopkeeper example and hifi thing
+	- Credit card given to shopkeeper
+		- Present ability for shopkeeper
+		- What you've requested is possible 
+		- There are authenticity checks 
+			- Weak checks such as pin and signature
+		- Third party willing to vouch for you
+		- Promise that the money will get to them
+			- Understand the parties, and communications involved
+		- Trust is context specific
+			- What is labelled as trust in the context provided
+		- Effort of non-repudiation
+		- MAC can be used to establish trust, so can pin, digital signature, certificate...
+			- It's context driven
+- Elaborate on the concept of interactions between actors in introduction
+- Read ISO27001
+- ILNP...
+	- Start researching!
+	- IPSec, IPv6 as well!
+- All 3 objective 3s are linked and should be written as such 
+
+- 23/06/20
+  ~~~~~~~~
+
+- Active Notes
+  ------------
+- TLS can set up connections using domain names or IP addresses
+	- There is an IP address conflict with ILNP for this part of the compatibility with ILNP
+	- It will break because IP used as identity 
+- All stuff done via IP addresses (for apache web server) whereas nginx all done in terms of domain names
+- Any time an IP address is used it will not work with ILNP
+- This comes from ILNP 
+- Security Parameters Index (SPI) as a part of SA in IPSec 
+	- How it's used
+- NAT and mobility to work with IPSec you need special arrangements
+
+- The doctor and the plumber are both professionals who do different things
+- If you have a headache, you've taken drugs and it doesn't shift, you're more likely to trust advice from a doctor than a plumber
+- Same for broken sink and plumber
+- You still trust both...
+- ...But not for getting a mortgage
+
+- Mechanisms are network level, you have to know how they relate to context at a higher level
+
+- VPN discussion
+- Change identity/fake identity for VPN 
+- You've faked where you are
+- Secured remote access for services
+	- Overlay network
+	- IP over UDP 
+	- UDP as if it was link-layer 
+	- CISCO anyconnect uses CISCO flavoured version which puts a layer on top of UDP and runs IP on that and gives you IP address at that level
+		- Encapsulation: like a tunnel
+		- At the end system at the moment that users have a socket interface with UDP
+		- Virtual interface that runs over UDP that looks like a link-layer
+		- One IP packet (UDP, whatever) forms the payload of another IP packet
+	- Tunneling is hugely useful: all VPNs use tunnels to some extent
+- Saleem off on Friday 
+	- Maybe for up to 2 weeks
+
+- todo
+  ~~~~
+- Consolidated notes:
+	- Details of IPSec in specific with relation to ILNP - start research
+		- NOT JUST ARCHITECTURE - LOOK AT FIELDS AND DISCUSS DIRECT ILNP FUNCTIONALITY
+	- Research ILNP enough to begin writing all sections
+		- Solid research, enough to genuinely start sections
+			- SECTIONS TO COMPLETE BY 2 WEEKS FROM NOW
+				- ABSTRACT
+				- INTRODUCTION
+					- Go through RFCs and write elevator pitches
+					- Use these to come up with a fully fledged introduction
+				- (REVISED) PREFACE
+				- OBJECTIVE 1
+				- OBJECTIVE 2
+		- Locator rewriting and locator rewriting relays
+		- Equivalent in IPv6 also possible
+			- IPv6 translation
+				- Look in OneDrive 
+			- Want to say stuff about this
+	- RFC 6748: Use cases for ILNP in context of VPN usage
+	- RFC 8200: IPv6 final standard
+		- Section 4 IPv6 Extension Headers
+		- Same thing applies to ILNPv6 as in this document, including these extension headers
+	- Remember to look in OneDrive for research
+		- RFCs
+	- Research tunnels
+		- VPNs as well...
+		- IP and IP tunneling
+		- https://en.wikipedia.org/wiki/IP_tunnel
+		- https://en.wikipedia.org/wiki/IP_in_IP
+- Document itself:
+	- Revisit preface in a few weeks time and have me rewrite with respect to what I've done
+		- Keep current preface for now but recognise that it will change depending on how the research and study goes
+
+- Internet is with a capital I - replace that 
+- Wording:
+	- The current internet architecture is "based off of" second paragraph of preface 
+- First paragraph may not be necessary 
+		- Probably superfluous for the expectation of the document
+		- Someone who has done CS3102
+		- Figure out target audience of the study and make it explicit
+
+- beginning of july
+  ~~~~~~~~~~~~~~~~~
+
+- Having trouble finding academic resources regarding varying levels of precision amongst location inference via geo-location lookups with IP
+	- Some papers magically reference the precision, or lack thereof, without the discussion of how the precision is acquired (RESOLVED - FOUND A PAPER) 
+
+- 07/07/20
+  ~~~~~~~~
+
+- Active Notes
+  ------------
+- No one relay knows the whole path 
+- Fake a packet from the packet stream from which that packet came from 
+- New session new nonce 
+	- Traceroute would require being on the path to spot something
+	- Only get them back to the last relay 
+		- Would require legitimate packets PAST the point of the last relay 
+		- All relays would require legitimising by a malicious endpoint
+
+- todo
+  ~~~~
+- IPSec
+- Diagrams!
+	- Impress on LibreOffice (ended up using draw.io)
+	- For LaTeX
+- Structure of report
+	- Table of contents
+	- Beginning middle and end of milcom 2011 paper
+
+- Connected with Gregor DONE
+- Used his answers to flesh out Objective 1 DONE
+- Completed Objective 2 DONE
+- Included diagrams DONE
+- Included readable roadmap/storyline of document DONE
+
+- What are the current plans for ILNP? Is it on track to be an internet standard with the work you and your colleagues are doing?
+- Won't be able to make next week's meeting (not because I've taken time off) - possibility to reschedule?
+
+- IPSec
+- IPSec is described as a security architecture for security services that can be provided at the network layer
+- For use with IPv4 and IPv6
+- I'll need to understand how it is used with NAT (which is in the RFC) so I can see what ILNP would have to do for that
+- Made up of 3 parts (and headers in a practical sense, but we can focus less on these until the very end)
+	- Encryption Security Payload (ESP) 
+	- Security Associations (SA)
+	- Authentication Header (AH)
+- These are obviously supported by cryptographic algorithms of various sorts including encryption and Internet Key Management (IKE)
+- "IPsec is designed to provide interoperable, high quality, cryptographically-based security for IPv4 and IPv6."
+- "The set of security services offered includes access control, connectionless integrity, data origin authentication, detection and rejection of replays (a form of partial sequence integrity), confidentiality (via encryption), and limited traffic flow    confidentiality."
+- "The IP Authentication Header (AH) [Ken05b] offers integrity and data origin authentication, with optional (at the discretion of the receiver) anti-replay features."
+- "The Encapsulating Security Payload (ESP) protocol [Ken05a] offers the same set of services, and also offers confidentiality."
+- AH or ESP can be deployed - but never both
+
+- 14/07/20
+  ~~~~~~~~
+
+- Active Notes
+  ------------
+
+- LRR 4g scenario: provider for a specific country gets a prefix /48 maybe smaller
+	- Everything looks like its come from its network 
+	- You cant tell exactly where its from, only the provider
+	- Lost notion of location
+- Change VPN scenario so it includes tunneling 
+	- Have a VPN client on your system
+	- You set a tunnel up and everything goes through that tunnel
+	- More easily done in that you don't have to worry about layers higher than network layer
+		- ILNP improves the efficiency of VPN-like applications
+		- Incorporate Gregor's answer
+		- Need another protocol
+- Make clearer the subnet border, the LRR sits on it 
+	- Scenarios 1 and 2 
+- Scenario 1 can be done straight away
+- Scenario 3 relies on different protocols or engineering mechanisms
+	- Does it use Tor for control plane but ILNP data forwarding?
+- Change name of spoofing to better topological sectioning, spoofing implies topological addresses are SUPPOSED to give up location
+- Other thing that's possible
+	- Extension of first scenario
+	- Upstream you've contacted several providers and you've gotten several prefixes and links
+		- Diverse paths
+	- Some policy based on that source locator values, and maybe other header values, would be able to make a decision and say which new locator value a packet should take, given the policy
+		- Associate prefixes (L values) to logical groups to implement policy 
+		- ...where network matches packets against a policy and decides how the locator should be rewritten so the packet is egressed for target QoS
+		- Give "fast" locators to sales, and "slow" ones to quality assurance or accounting
+		- OR making sure packets are routed in one way or another, i.e. not through China
+	- POLICY CONTROL
+- Objective 2
+	- If you want NAT with IPSec you need to change IPv6 deployments
+	- You DON'T with ILNP!
+	- You can't use NAT with IPSec because it can't assign a security association with a private address
+	- IPsec is used for site-to-site as well as device to device
+		- Nothing stopping you from using either mode for both
+		- Transport layer gives up location and identity privacy 
+		- Not with ILNP, but tunnel mode solves it for IPv6
+	- Even if you have ephemeral identifiers amongst a subnet are unique, identifiers on their own are not globally unique
+		- RFC6296 may solve this, actually maybe not... Read into increasing entropy for identifiers 
+		- RFC8200 official IPv6, funny point...
+- Abstract at the beginning, this is what this whole paper's about
+	- Write a problem statement,  rewrite introduction
+	- Problem statement as a question
+		- Add to preface: What are the intrinsic security and privacy features of IPv6 and ILNPv6?
+		- Say that others have spotted it, how does IPSec improve things for IP and ILNP
+		- Then come onto my questions (the ones already written)
+		- Last question to say what the better is with ILNP in terms of use with IPSec, mobility, etc. 
+- Last question
+	- The RFCs you see at the moment are experimental
+	- However, the various numbers assigned - wireshark recognising ILNP packets are done by official values assigned by IANA
+	- Can be used internet wide
+	- 2 implementations - public one demo'd at the netdev conference and the FreeBSD one worked on by Gregor
+		- On track to be a standard, but can already be used
+- Look into DNS-over-HTTPS and DNS-over-TLS 
+
+- todo
+  ----
+
+- Email Saleem about change to meeting schedule DONE
+- Edit LRR scenario diagrams such that... DONE
+	- They are labelled with their scenario
+	- The first one puts the LRR on the gateway to the subnet
+	- A fourth scenario looks at experimental route policy implementation of LRR
+	- The second scenario makes VPN concept more clear in conjunction with overheads and purpose
+	- The third scenario is made more clear overall 
+- Change the name of spoofing to something more appropriate to what is expected of layer 3 DONE
+- Cite Haywood and Bhatti DONE
+- Objective 3 first draft
+	- Intro DONE
+	- NAT DONE
+	- Multihoming DONE
+	- Mobility
+- Change beginning DONE
+	- Change preface to include problem statement in the form of the question
+		- "What are the intrinsic security and privacy features of IPv6 and ILNPv6?" 
+		- More notes on that above, resturucture questions
+- 9/9?
+
+- Mention change to IPSec NAT adoption from Objective 2 to Objective 3
+- Ask about how LRR used in scenario 1 could provide NAT? Locators of nodes are re-written, so surely it would simply change that which identifies the subnetwork a node is behind, not the node which is seeking to be individually transparent
+- "host multihoming is not common in the deployed Internet", where was this sourced?
+
+- 22/07/20
+  ~~~~~~~~
+
+- Active Notes
+  ------------
+
+- Change diagram to change policy mechanism in LRR scenario 4 to security oriented, i.e. not route through china rather than business purposes
+	- Upstream provider guarantees speed or certain routes (for security)...
+	- ...LRR-changed Locator value informs the provider that the route that Locator node needs is a secure or fast one
+	- Totally based on prefixes!
+- Even if you have a /48, internally you can route on /56 or /64, you can still hve multiple prefixes
+	- Those you allocate as the site administrator, you decide what happens with it, if you see these prefixes, treat them in the following way
+	- Just use the prefix
+- For NAT, you want an identity for an end system
+	- You don't need the routing bits in there
+	- That's what making use of the whole of the 128 bits in IPSec a problem
+	- The SA is tied to those bits, nobody could modify just those bits (former 64), which is routing subversion, if you are using IPSec, then you would have other protection
+- A normal NAT works: it changes he full address of an outgoing packet, source address... completely local... internally in their network
+	- When NAT is used, the whole of the source address gets rewritten, because the whole of the address gets rewritten, the identity of the end system ...
+- NAT achieved with neighbour discovery post Locator rewrite 
+	- Locator of hosts behind SBR only needed for neighbour discovery purposes so a host can actually be resolved
+	- NAT now used for privacy and security
+		- Nobody externally can analyse the network from Locators
+		- SBR rewrites the Locator, extending that to multiple Locator rewrites with scenario 3 improves security too 
+	- If you change ISP, you get a different prefix or Locator, that potentially means renumbering your whole site network
+		- NAT-like function just means changing the mapping of the LRR - much easier
+	- Gives you failover if there is a DDoS, i.e. change one LRR-NAT to another, change mappings and you're golden
+- CyberFirst Objectives 
+	Objective 1 - Extending knowledge in a topic I previously studied including things that are considered research rather than things that are considered "well known" (beyond undergrad level, what I would normally do)
+	Objective 2 - Meetings and discussion with respect to Objective 1
+	Objective 3 - Creating a coherent document describing new insights, i.e. what I have with Objective 1
+
+- todo
+  ~~~~
+
+- Security policy instead of selective performance routing for LRR scenario 4
+	- Subset being site-to-site IPSec tunnel, no real ILNP benefits
+- Really think about how I'm going to pull it together - better vision for paper
+	- Thinking about those objectives
+	- Critical evaluation on what I've done
+		- Do I think it represents 320 hours of work?
+		- Could I have been more efficient?
+		- Anything that hindered my progress?
+	- Next week reading everything and getting to the point where it's genuine
+- Look at ILNP Milcomm papers starting from this year and going back
+	- Start in OneDrive
+	- In fact, read everything in the OneDrive
+		- Page 7 of purba
+- Visuals: make it look nice
+
+- The Locator value is attached to the connection itself, NOT the network.
+- The Identifier value always identifies the node
+- Look at ILNP's nonces in more detail
+- ILNP multicasting is the same as that for IPv4 and 6
+- ILCC = Identifier-Locator Communication Cache
+	- Valid Identifier-Locator values used by a node
+	- All I need to know, it's mostly for engineering, but is used in examples to illustrate architectural ideas
+- Big difference between site and host multihoming: host's may not be aware of site's use of multiple upstream providers
+	- This doesn't imply that an SBR knows of a host's multihoming capability at any one time when a host is multihoming
+
+- Perhaps to add:
+	- A better explanation of IPSec's Security Associations (SAs)
+	- IPSec is also included in ILNP's harmonised support for NAT, multihoming and mobility
+	- Processing of ILNP's nonce value is less computationally expensive than IPSec processing (for firewalls) 
+
+todo
+~~~~
+
+Wednesday
+2/2
+- "Topology obfuscation bit here instead of in the location privacy section,also include something about why it’s important" ✓
+- "IPv6 has some mechanisms for identity privacy, why use ILNP’s?  (remainscope with what’s been discussed:  RFC4941)" ✓
+
+Thursday
+2/2
+- "Purported performance benefit of this altered binding (IPSec with Identifier binding)" ✓
+- "ILNP’s nonce option is important and should be discussed here" ✓
+
+Thursday Afternoon
+1/1	
+- "IPv6's location privacy mechanisms external to Tor and VPN? More integral RFC-specified mechanisms like ILNP's LRRs?" ✓
+
+Friday Morning
+2/2
+- "These features aren’t the enemy - just phrase with reference to harmony" ✓
+- "Im very unhappy with the above paragraph,  NAT and its architectural principle extend beyond the address exhaustion problem and should be refer-enced as so - otherwise, ILNP’s interoperability with it would be pointless.  Talkabout failover and site   topology obfuscation exterior to way discussed earlier" ✓
+
+Friday
+2/2
+- "I have the content and I’m happy with it, but this whole section needs to be reworked" ✓ (not really)
+- "How the study could have benefited from practical work?  Security or privacyfeatures that have been overlooked over the course of the study’s writing?  IfILNP solves many of the architectural and privacy issues IPv6 brings, what otheraspects of its     design result in the fact that it has not been widely adopted?" ✓
+
+Saturday and Sunday
+1/1
+- "Completion of evaluation" ✓
+
+Monday
+5/6
+- "E-Mail Saleem" ✓
+- "Re-read all literature for anything I might have missed" ✓
+- "Revise notes placed throughout paper" ✓
+- "Re-read paper with fresh perspective only after revising literature" ✓
+- "Complete personal, reflective evaluation and ensure CyberFirst document is in order"
+- "Make look really nice" ✓
+
+Specific Changes to the Paper (Circa Week 6)
+
+Preface: paragraphs 1 + 2: aimed at a reader with little prior knowledge of internet architecture - probably best if I instead write something that better introduces the architectural benefits of ILNP that get talked about later. It will also be worth changing the questions in the preface to better match the structure of the paper, maybe so the “Structure of this Paper” section can be done away with.
+
+Generally, get rid of all double parenthesized sections - you’ve never actually seen these in writing so why are they used so frequently?
+
+The Introduction comes across as clumsy, and obfuscates key ideas for the rest of the paper in large paragraphs. Since I wrote the first draft of the Introduction I’ve learnt more about ILNP’s topological significance (LRR producing ease of use with a NAT, address exhaustion solution benefits drawn from IPv6’s address space, etc.), and can definitely include more. Maybe I should explain adoption issues ILNP has at the moment with the internet, or, more generally, how some nodes must be ILNP-aware rather than changed in a more significant way, i.e. what ILNP-aware means. If I could come up with a diagram for the Introduction as well, the visual interpretation could improve clarity of the ideas.  
+
+Introduction to Objective 1: I’m happy with this, I’ll improve the definition of privacy and I’ll consider including something on how bad it is when it isn’t taken seriously.
+
+Location Privacy: “Care-of-address” reveal needs more elaboration in conjunction with how it works in Mobile IPv6, difference between onlooker and endpoint privacy jeopardy should be explained, and SLAAC generated addresses always rely on device specific information that never changes - not just MAC addresses. It is also worth discussing the motivation for a system like SLAAC, i.e. easy address distribution to newly configured networks - it’s also worth considering what the alternatives are, and if it’s used more widely than the alternatives. That last point would be in effort to explain the flexibility of IPv6, but nonetheless how a “vanilla” configuration option is so terrible for privacy. The main method of determining location from network metrics across a single network scale is Tracert and ping - therefore, I would like to write more about how that is done in specific. Implement changes to the LRR diagram as per Haywood’s advice and put scenario 4 into a security context instead of a business-centric one. 
+
+Identity Privacy: Better explain how ephemeral addresses are produced - this scheme is also available for IPv6 location prefixes, so why is ILNP’s implementation of it from the get-go a bonus? It will also be worth having a paragraph in this section on desirable qualities of an ephemeral address - I did plenty of research on this and for some reason it’s only included in a sentence.
+
+Introduction to Objective 2: Include security mechanisms that grant endpoints basic integrity, authentication, and non-repudiation. Will need more evidence on why IPSec is used - will also need slightly more on why it is more easily adopted by ILNP than IPv6. 
+
+Adoption: Are there any security implications when it comes to ILNP’s dynamic address binding and IPv6 address scanning? Explain more about the IPSec architecture, the concept of an SPI is name-dropped to no real value other than explaining the change in binding it has from an IP address to an ILNP Identifier. 
+
+Objective 3: Explain in more detail the role that multihoming and mobility have in the internet infrastructure - why are they worth considering? What are the challenges that come with their current adoption? Spend more time studying how mobility and multihoming are achieved in IPv6. The explanation of NAT and its significance is lacking in that it doesn’t explain some of the organisational benefits it brings - i.e. what does NAT do other than just (partially) solve the address exhaustion problem for IPv4? It’d be worth doing a lot of research into how NAT is deployed with IPv6 in mind at the moment.  
+
+Mobility and Multihoming: Drop St. Andrews example and replace it with a more professional one. Make a better explanation on how multihoming can change routing - this allows the reader to recognise its relevance with respect to layer 3, and the protocols responsible (IPv6 and ILNP). Don’t say multihoming is more abstract than mobility - it’s not relevant. Spend more time on RFC3775 so mobility can be better compared with ILNP’s proposed method of achieving it. Better explain that the new set of ICMP messages used for care-of-address and home address bindings are re-used for ILNP’s Locator updates. Format how site and host multihoming and mobility are achieving into a table. 
+
+Rest of Paper: Only worth writing once these changes have been made, and any other changes recognised along the way. Overwhelmingly, this paper should be something that is actually worth reading, and expresses complex and abstract networking ideas in a coherent fashion while presenting a genuine argument in favour of ILNP over IPv6 while presenting all that is relevant. At the moment, it does follow a structure of explaining the shortfalls of IPv6 only to explain how ILNP saves the day - sometimes this is literally true, but I feel there is more to be said in the complex case of why it is true, for example, IPv6 isn’t perfect, but there are mechanisms in place to solve a lot of the problems described throughout the paper, however, what are the deployment issues with these technologies, why are the ideas ILNP presents better in comparison to these changes?
+
+After that: Implement any changes Prof. Bhatti suggests, make the paper visually appealing, etc.
+
+
+talking points
+~~~~~~~~~~~~~~
+
+- there's a nice readme in the repo now explaining the purpose of each document
+	- I'll go through the study itself first then we can go to the evaluative ones
+
+- Firstly you'll notice the styling difference I added yesterday
+- Rephrased basically the entire preface for a more advanced reader 
+- Wrote a bit more about IPv6's Mobile IP standard and its security flaws
+	- Care-of-address given up when direct routing is used
+- Changed the descriptions of each LRR scenario to be more security oriented
+	- The diagram itself is also much more readable and clear
+- I discussed a bit about what can be done to IPv6 to remedy its location privacy with vanilla usage of VPN technology or Tor, as well as IPSec between CoA and HA for BU in RFC5726 
+- Identity privacy
+	- I added quite a bit in this section 
+		- Topology obfuscation in ILNP exterior to NAT
+		- Ephemeral Identifier options and IPv6 equivalence
+- IPSec section
+	- Nonces as well...
+- NAT section I included a better explanation on why NAT is important not just for address exhaustion
+	- Failover
+	- Backwards compatibility
+	- Network organisation
+	- Topology obfuscation (exterior to the vanilla ILNP method discussed earlier in the study)
+	- Harmony with IPSec communication amongst devices deployed on NAT-ted networks
+- Mobility and multihoming duality discussed on a respecticve host and site basis
+	- With a nice little diagram at the end showing how Locator updates can be used in a 'soft' and 'hard' context
+- Evaluation  
+	- Practical work I could have done to illustrate location privacy concerns and more generally how architecture can really affect the engineering of an attack or profiling
+	- ILNP is experimental and not under as much public scrutiny as IPv6
+- Conclusion
+	- Wrap up of all conclusions made, mostly in favour of ILNP 
+
+- The critical evaluation is one that I started just after our meeting ~2 weeks ago
+	- I used it as an opporunity to critically reflect on my work habits and what I have achieved
+	- I made a plan for the 2 subsequent weeks and I can say with certainty that it made a difference to my productivity
+		- Speaking of productivity, things have been difficult because of my work environment but also some outlying factors
+			- I probably should have mentioned this before but I have limited experience with it and it became too much of a factor to ignore on critical reflection
+		- I made a plan to improve and I answered several questions that give an indication to my overall progress
+		- This morning I filled out how well I completed my objectives overall
+		- I did have a plan for what I would do to change the study but the paper changed so much as I made revisions that I've archived that plan in my personal notes
+	
+- Lastly is my CyberFirst checklist which I've filled out in conjunction with the objectives that we set
+	- I also filled out my competencies section, omitting the team working and leading others part for obvious reasons
+
+- We're done!
+	- Here's what to do:
+		- Linux version of ILNP is all there is and was only released last year in evaluation
+		- Emphasis on site mobility being the same thing as site multihoming
+		- Put the ILNP layer responsibility table in the Introduction
+			- Make sure to cite!
+		- Email student welfare about everything to do with my back
+		- Include Email backlog in the git repo
+
+
+
+
+
+
+ 
