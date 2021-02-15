@@ -1,0 +1,1 @@
+This repository contains all accompanying documents for this project, the final paper is IPv6_versus_ILNP_Architectural_Harmony_and_Security.pdf
